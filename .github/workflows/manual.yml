@@ -18,13 +18,13 @@ jobs:
         run: |
           cp Sources/WireGuardApp/Config/Developer.xcconfig.template Sources/WireGuardApp/Config/Developer.xcconfig
       
-      - name: Check available schemes
+      - name: List available schemes
         run: xcodebuild -list -project WireGuard.xcodeproj
       
       - name: Build macOS app
         run: |
           xcodebuild -project WireGuard.xcodeproj \
-                     -scheme "WireGuard" \
+                     -scheme "WireGuard macOS" \
                      -configuration Release \
                      -destination 'generic/platform=macOS' \
                      build \
@@ -37,5 +37,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: AmneziaWG-macOS-unsigned
-          path: build/Release/WireGuard.app
+          path: build/Release/AmneziaWG.app
           retention-days: 7
