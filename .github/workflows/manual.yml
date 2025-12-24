@@ -1,0 +1,21 @@
+name: Build AmneziaWG iOS
+
+on:
+  workflow_dispatch:  # Ручной запуск
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install dependencies
+        run: |
+          brew install swiftlint go
+      
+      - name: Build project
+        run: |
+          cp Sources/WireGuardApp/Config/Developer.xcconfig.template Sources/WireGuardApp/Config/Developer.xcconfig
+          xcodebuild -project WireGuard.xcodeproj -scheme WireGuardiOS -configuration Release archive -archivePath AmneziaWG.xcarchive CODE_SIGNING_ALLOWED=NO
